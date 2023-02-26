@@ -1,7 +1,8 @@
 import os
 
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
+from palindrome_actionjdjackson.phrase import Phrase
 
 def create_app(test_config=None):
     """Create and configure the app."""
@@ -32,6 +33,14 @@ def create_app(test_config=None):
     def palindrome():
         return render_template("palindrome.html",
                                 page_title="Palindrome Detector")
+
+    @app.route("/check", methods=("POST",))
+    def check():
+        phrase = request.form["phrase"]
+        is_palindrome = Phrase(phrase).ispalindrome()
+        return render_template("result.html",
+                                phrase=phrase,
+                                is_palindrome=is_palindrome)
 
     return app
 

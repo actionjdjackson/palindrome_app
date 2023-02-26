@@ -10,13 +10,14 @@ def test_about(client):
     assert response.status_code == 200
     assert full_title("About") in response.text
     assert "<h1>" in response.text
+    assert "<nav>" in response.text
 
 def test_palindrome(client):
     response = client.get("/palindrome")
     assert response.status_code == 200
     assert full_title("Palindrome Detector") in response.text
     assert "<h1>" in response.text
-
+    assert "<nav>" in response.text
 
 
 def full_title(variable_title):
